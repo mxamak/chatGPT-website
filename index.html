@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recipe Collection</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f2f2f2;
+    }
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 10px 0;
+      text-align: center;
+    }
+    nav {
+      background-color: #444;
+      padding: 10px;
+    }
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+    nav ul li {
+      display: inline;
+      margin-right: 20px;
+    }
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    section {
+      padding: 20px;
+    }
+    .recipe-card {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+      margin-bottom: 20px;
+      background-color: #fff;
+    }
+    footer {
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 10px 0;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Recipe Collection</h1>
+  </header>
+  <nav>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#recipes">Recipes</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+  <section id="home">
+    <h2>Welcome to our Recipe Collection!</h2>
+    <p>Explore delicious recipes from around the world.</p>
+  </section>
+  <section id="recipes">
+    <h2>Recipes</h2>
+    <label for="category">Filter by category:</label>
+    <select id="category">
+      <option value="all">All</option>
+      <option value="breakfast">Breakfast</option>
+      <option value="lunch">Lunch</option>
+      <option value="dinner">Dinner</option>
+      <option value="dessert">Dessert</option>
+    </select>
+    <div id="recipe-container">
+      <!-- Recipe cards will be dynamically added here -->
+    </div>
+  </section>
+  <section id="contact">
+    <h2>Contact</h2>
+    <p>Feel free to contact us with any questions or suggestions!</p>
+  </section>
+  <footer>
+    <p>&copy; 2024 Recipe Collection. All rights reserved.</p>
+  </footer>
+  <script>
+    const recipes = [
+      { name: "Scrambled Eggs", category: "breakfast", description: "Simple and delicious scrambled eggs."},
+      { name: "Chicken Salad", category: "lunch", description: "Healthy chicken salad with fresh veggies."},
+      { name: "Spaghetti Bolognese", category: "dinner", description: "Classic Italian pasta dish with rich meat sauce."},
+      { name: "Chocolate Cake", category: "dessert", description: "Decadent chocolate cake topped with ganache."}
+    ];
+
+    const recipeContainer = document.getElementById('recipe-container');
+    const categoryFilter = document.getElementById('category');
+
+    function renderRecipes() {
+      const selectedCategory = categoryFilter.value;
+      let filteredRecipes = recipes;
+      if (selectedCategory !== 'all') {
+        filteredRecipes = recipes.filter(recipe => recipe.category === selectedCategory);
+      }
+      recipeContainer.innerHTML = '';
+      filteredRecipes.forEach(recipe => {
+        const card = document.createElement('div');
+        card.classList.add('recipe-card');
+        card.innerHTML = `
+          <h3>${recipe.name}</h3>
+          <p>${recipe.description}</p>
+        `;
+        recipeContainer.appendChild(card);
+      });
+    }
+
+    categoryFilter.addEventListener('change', renderRecipes);
+
+    renderRecipes();
+  </script>
+</body>
+</html>
